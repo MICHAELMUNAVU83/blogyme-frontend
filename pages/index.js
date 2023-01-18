@@ -3,19 +3,8 @@ import PostCard from "@/components/PostCard";
 import PostWidget from "@/components/PostWidget";
 import Categories from "@/components/Categories";
 
-export default function Home() {
-  const posts = [
-    {
-      title: "Post 1",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
-    },
-    {
-      title: "Post 2",
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quod.",
-    },
-  ];
+export default function Home({ posts }) {
+  console.log(posts);
   return (
     <div className="container mx-auto px-10 mb-2">
       <Head>
@@ -40,3 +29,12 @@ export default function Home() {
     </div>
   );
 }
+
+export const getStaticProps = async () => {
+  const res = await fetch("http://localhost:3000/posts");
+  const posts = await res.json();
+
+  return {
+    props: { posts },
+  };
+};
